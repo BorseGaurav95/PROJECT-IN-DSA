@@ -1,0 +1,176 @@
+/*assignment no.1
+ * date 3/7/2018
+ * created by Gaurav Borse..
+ *student information program.. 
+ 
+ */ 
+#include<iostream>
+using namespace std;
+     
+ class student
+ { int roll;
+   char name[20];
+   int marks;
+   int p;
+   static int count,max,min,absent,sum;
+   static int m[31];  
+    static int x,y;	
+public:  
+       
+	void get(int j)
+       
+        {           cout<<endl;
+                   cout<<"Student no."<<"["<<j+1<<"]"<<endl;  
+		   cout<<"Enter name of student :: ";   //enter details of student.
+		   cin>>name;
+		   cout<<"\nEnter roll no. of student::" ;
+		   cin>>roll;
+                   cout<<"\nMaximum marks allowed for exam is 30::"<<endl;
+                   cout<<"\nEnter -1 if student is absent in class::"<<endl ;
+                   cout<<endl;
+                  
+                   cout<<"\nEnter marks of student::";
+		   cin>>marks;
+                    
+                      if(marks<0)
+                           { p='n';
+                            absent++; 
+                           }		   
+                       else
+                          { p='y';
+                          m[marks]++;
+                          
+                            if(marks<min)                       
+                            {
+                                min=marks;
+                            }
+                          
+                           
+                          if(marks>max)
+                          {
+                               max=marks;
+                          }
+                            sum=sum+marks;
+                      
+                           }
+
+                       count++;
+         }
+	
+	
+         void result()
+	 {   int avg,total;
+             total=count-absent;
+
+             avg=(sum/total);
+
+            cout<<"\nRESULT::";
+            cout<<"\nMAXIMUM MARKS="<<max<<endl;
+            cout<<"\nMINIMUM MARKS="<<min<<endl;
+            cout<<"\nAVERAGE MARKS OF CLASS= "<<avg<<endl;
+            
+
+         }
+
+      void intt() 
+     {for(int i=0;i<31;i++)
+          
+            m[i]=0;
+      }
+         int j;
+    void intf()	
+         {
+      
+               x=m[0];
+                for(int j=0;j<31;j++)
+                   { if(m[j]>x)
+                        {
+                             x=m[j];
+                             y=j;
+                        }
+ 
+                   } 
+        }
+    void display(int j);
+    void dis1()
+    {
+    
+    
+                  cout<<"\nMost occuring marks marks is:"<<y<<endl;
+                  cout<<"Frequency of most occuring mark is :"<<x<<endl;
+    }
+       
+
+
+	
+ };  int student::count;
+     int student::max;
+     int student::min=30;
+     int student::sum;
+     int student::absent;
+     int student::m[31];
+     int student::y;
+     int student::x;
+int main()
+ {      
+         student s[60],s1,s2;
+	 int j,b;
+         s2.intt();
+         
+         cout<<"********WELCOME STUDENT*********";
+         cout<<endl; 
+	 cout<<"Enter no.of student :";
+	 cin>>b;
+         
+        
+    for(j=0;j<b;j++)
+     {
+    	s[j].get(j);
+        s[j].intf(); 	
+     }
+     cout<<"\nROLLNO\tname\t\tatt\tmarks";
+ 
+    for(j=0;j<b;j++)
+     {
+    	s[j].display(j);
+         	
+     }
+      s[1].result();
+      s2.dis1();
+    
+      
+      
+         
+
+} 
+     
+       
+             
+
+void student::display(int j)
+{
+    
+	cout<<"\t\n("<<j+1<<")"<<roll;
+	cout<<"\t"<<name;
+	if(p=='y')
+	{
+
+	cout<<"\t\tp";
+	 cout<<"\t"<<marks;
+	}
+
+     else
+     {
+    	 cout<<"\t\tab";
+    	 cout<<"\t-1";
+
+     }
+        
+}
+/*	void display(int j)
+	 {     
+         cout<<endl;       
+	cout<<name<<"\t"<<roll<<"\t"<<marks;	 
+        cout<<endl;
+	 }
+*/

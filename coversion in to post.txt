@@ -1,0 +1,258 @@
+#include <iostream>
+#include<cstring>
+using namespace std;
+
+struct stack                             //Defining stack
+{
+	char data[20];
+	int dataint[20];
+	int top;
+	int topint;
+}s;
+
+class sample
+{
+	char final[20];			
+	int playint[20];
+public:
+	sample()
+	{
+		s.top = -1;
+		s.topint = -1;
+		s.data[0] = '\0';
+	}
+	void makeNew();
+	void push(int);
+	int pop(int);
+	void push(char);
+	char pop();
+	int isEmpty();
+	int prio(char);
+	void post(char *exp);
+	int isOp(char);
+};
+
+void sample::makeNew()				//Function for evaluation
+{
+	int a1, b1, c1, d1;
+	a1 = b1 = c1 = d1 = 0;
+	cout << "\n Enter the values of variables";
+	cout << "\n a:";
+	cin >> a1;
+	cout << "\n b:";
+	cin >> b1;
+	cout << "\n c:";
+	cin >> c1;
+	cout << "\n d:";
+	cin >> d1;
+	int length = strlen(final);
+	for (int i = 0; i<length; i++)
+	{
+		if (isOp(final[i]))
+		{
+			int t1=0, t2=0;
+			t1 = pop(t1);
+			t2 = pop(t1);
+			if (final[i] == '+')
+			{
+				t1 = t2 + t1;
+				push(t1);
+			}
+			else if (final[i] == '-')
+			{
+				t1 = t2 - t1;
+				push(t1);
+			}
+			else if (final[i] == '*')
+			{
+				t1 = t1*t2;
+				push(t1);
+			}
+			else if (final[i] == '/')
+			{
+				t1 = t2 / t1;
+				push(t1);
+			}
+		}
+		else
+		{
+			if (final[i] == 'a')
+			{
+				push(a1);
+			}
+			else if (final[i] == 'b')
+			{
+				push(b1);
+			}
+			else if (final[i] == 'c')
+			{
+				push(c1);
+			}
+			else if (final[i] == 'd')
+			{
+				push(d1);
+			}
+		}
+	}
+	cout << "\n Evaluation  is " << s.dataint[0] << endl;
+}
+
+void sample::push(int x)			//PUSH Function for integer stack
+{
+	s.topint++;
+	s.dataint[s.topint] = x;
+
+}
+
+int sample::pop(int x)				//POP Function for integer stack
+{
+	s.topint = s.topint - 1;
+	return s.dataint[s.topint + 1];
+}
+
+void sample::push(char x)			//PUSH Function for Character stack
+{
+	s.top++;
+	s.data[s.top] = x;
+	s.data[s.top + 1] = '\0';
+}
+
+char sample::pop()				//POP Function for Character stack
+{
+	s.top = s.top - 1;
+	return s.data[s.top + 1];
+	s.data[s.top + 1] = '\0';
+}
+
+int sample::isEmpty()				//Function to check if Stack is empty
+{
+	if (s.top == -1)
+	{
+		return 1;
+
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int sample::prio(char x)			//Function to return the Priority of Operator
+{
+	if (x == '+' || x == '-')
+	{
+		return 1;
+	}
+	else if (x == '*' || x == '/')
+	{
+		return 2;
+	}
+	else if (x == '^')
+	{
+		return 3;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int sample::isOp(char x)			//Function to check if given character is operator or not
+{
+	if (x == '+' || x == '-' || x == '*' || x == '/' || x == '(' || x == ')' || x == '^')
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+void sample::post(char *exp)			//Function to convert the expression into postfix expression
+{
+	char sym, t;
+	int i, j = 0;
+
+	final[j] = '\0';
+	int length = strlen(exp);
+	cout << "\n Element" << "|" << "stack cont." << "\t" << "|" << "Output";
+	for (i = 0; i < length; i++)		//Loop to traverse whole expression
+	{
+		cout << "\n " << exp[i] << "\t" << "|" << "\t" << s.data << "\t" << "|" << "\t";
+		sym = exp[i];
+		if (isOp(sym))			//Check whether character is operator or not
+		{
+			if (isEmpty())		//If stack is empty Directly push the operator
+			{
+				push(sym);
+			}
+			else if (sym == '(')	//If Symbol is 'C' Push it into stack
+			{
+				push(sym);
+			}
+			else if (prio(sym)>prio(s.data[s.top]))	//Check priority of current element with top of stack
+			{
+				push(sym);
+			}
+			else if (prio(sym)<prio(s.data[s.top]))	//Check priority of current element with top of stack
+			{
+				//if yes first pop top element and then push current operator
+				t = pop();		
+				final[j] = t;
+				final[j + 1] = '\0';
+				cout << final[j];
+				j++;
+				push(sym);
+			}
+			else				//pop all elements until the operator'(' comes
+			{
+				while (s.data[s.top] != '(')
+				{
+					t = pop();
+					final[j] = pop();
+					final[j + 1] = '\0';
+					cout << final[j];
+					j++;
+
+				}pop();			//pop the '(' operator
+			}
+		}
+		else					//Directly put operand in final array
+		{
+			final[j] = sym;
+			final[j + 1] = '\0';
+			cout << final[j];
+			j++;
+		}
+
+	}
+	while (!isEmpty())				//pop and store remaining elements
+	{
+		t = pop();
+		if (t == '(' || t == ')')
+		{
+			t = pop();
+		}
+		else
+		{
+			final[j] = t;
+			final[j + 1] = '\0';
+			cout << final[j];
+			j++;
+		}
+		while (!isEmpty())
+			t = pop();
+
+	}
+	cout << "\n Expression is " << final;
+
+
+}
+
+int main() {
+	sample s1;
+	char *ex = new char[20];
+	cout << "\n Enter the Infix Expression";
+	cin >> ex;
+	s1.post(ex);
+	s1.makeNew();
+	return 0;
+}

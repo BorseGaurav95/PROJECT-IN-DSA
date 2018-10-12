@@ -1,0 +1,361 @@
+
+#include<iostream>
+using namespace std;
+class pinnnacle_club;
+
+
+pinnnacle_club *first = NULL;
+pinnnacle_club *p = NULL;
+pinnnacle_club *q = NULL;
+pinnnacle_club *r = NULL;
+
+int a, i, b;
+
+class pinnnacle_club
+ {
+private:
+    int prn;
+    char name[10];
+
+
+public:
+    pinnnacle_club *next = NULL;
+
+    pinnnacle_club* linkedlistf() {
+
+
+        do {
+            if (first == NULL) {
+                first = new pinnnacle_club;
+
+                first->get();
+first-> next=NULL;
+            }
+
+            else
+ {
+                p = first;
+                while (p->next != NULL) {
+                    p = p->next;
+                }
+
+
+                p->next = new pinnnacle_club;
+
+                p->next->get();
+                 p->next=NULL;
+            }
+
+            cout << endl;
+            cout << "Enter 1 for continue";
+            cin>>a;
+
+        } while (a == 1);
+        p = first;
+
+        put();
+
+        return first;
+
+    }
+
+    void get() {
+        cout << "\nEnter name of student      :";
+        cin>>name;
+        cout << "\nEnter PRN number of student:";
+        cin>>prn;
+
+
+    }
+
+    void put() {
+       
+        p = first;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "PRESIDENT OF THE CLUB:\n";
+        cout << "Name of President is:" << p->name << endl;
+        cout << "PRN number is:" << p->prn << endl;
+        p = p->next;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "MEMEBER'S OF CLUB:\n";
+        while (p->next != NULL) {
+            cout << "Name of Member      :";
+            cout << p->name << endl;
+            cout << "PRN number of Member:";
+            cout << p->prn << endl;
+
+            p = p->next;
+        }
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "SECRETARY OF THE CLUB:\n";
+        cout << "Name of Secretary is:" << p->name << endl;
+        cout << "PRN number is       :" << p->prn << endl;
+
+
+    }
+
+    void insert_first() {
+
+        p = first;
+
+        q = new pinnnacle_club;
+        q->get();
+        q->next = first;
+        first = q;
+
+        p = first;
+
+
+        put();
+
+
+    }
+
+    void delete_first() {
+
+        cout << "\nEnter 2 for delete at first  :";
+        cin>>b;
+        if (b == 2) {
+
+            first = first->next;
+
+
+        }
+        p = first;
+
+        put();
+
+
+
+
+    }
+
+    void delete_end() {
+
+
+
+        p = first;
+        while (p->next->next != NULL) {
+            p = p->next;
+        }
+
+        p->next = NULL;
+        p = first;
+        put();
+
+    }
+
+    void insert_end() {
+        p = first;
+
+        while (p->next != NULL) {
+            p = p->next;
+
+        }
+
+        p->next = new pinnnacle_club;
+        p->next->get();
+        p = first;
+
+        put();
+
+    }
+
+    void insert_any() {
+        int a1;
+
+        cout << "Enter position no. that where you want insert element :";
+        cin>>a1;
+        p = first;
+        for (int i = 0; i < a1 - 2; i++) {
+            p = p->next;
+        }
+        q = new pinnnacle_club;
+        q->get();
+        q->next = p->next;
+        p->next = q;
+
+
+
+        p = first;
+
+        put();
+
+
+
+    }
+
+    void delete_any() {
+        int b;
+        cout << "Enter position no. that you want to delete : ";
+        cin>>b;
+        p = first;
+        for (int i = 0; i < b; i++) {
+            p = p->next;
+        }
+        q = first;
+        for (int i = 0; i < b - 2; i++) {
+            q = q->next;
+        }
+        q->next = p;
+
+        q = first;
+
+        put();
+
+
+
+
+
+
+    }
+
+    void reverse_function(pinnnacle_club* cn) {
+
+
+
+
+
+        if (cn->next != NULL) {
+
+            reverse_function(cn->next);
+
+        }
+
+        cn->put();
+
+
+
+
+
+
+    }
+
+    void reverselist() {
+        p = first;
+        reverse_function(p);
+
+    }
+
+    void concatenate(pinnnacle_club* a, pinnnacle_club* b) {
+        pinnnacle_club* cn;
+         p=cn=a;
+
+        if (cn->next != NULL) {
+            cn = cn->next;
+
+        }
+
+
+        cn->next = b;
+         
+        if (cn->next != NULL) {
+            cn = cn->next;
+
+        }
+        cn->next = NULL;
+            
+        put();
+
+    }
+/*
+    void con1() {
+        cout << "Enter in  concatinated string:";
+        p = first;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "PRESIDENT OF THE CLUB 1:\n";
+        cout << "Name of President is:" << p->name << endl;
+        cout << "PRN number is       :" << p->prn << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "PRESIDENT OF THE CLUB 2:\n";
+        cout << "Name of President is:" << q->name << endl;
+        cout << "PRN number is       :" << q->prn << endl;
+        p = p->next;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "MEMEBER'S OF CLUB:\n";
+        while (p->next != NULL) {
+            cout << "Name of Member      :";
+            cout << p->name << endl;
+            cout << "PRN number of Member:";
+            cout << p->prn << endl;
+
+            p = p->next;
+        }
+
+
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "SECRETARY OF THE CLUB 1:\n";
+        cout << "Name of Secretary is:" << q->name << endl;
+        cout << "PRN number is       :" << q->prn << endl;
+        cout << "-------------------------------------------------------------" << endl;
+        cout << "SECRETARY OF THE CLUB 2:\n";
+        cout << "Name of Secretary is:" << p->name << endl;
+        cout << "PRN number is       :" << p->prn << endl;
+
+
+    }
+
+
+
+*/
+
+
+
+
+
+};
+
+int main() {
+
+    pinnnacle_club g, g1, g2;
+    int a, n;
+    char y;
+    pinnnacle_club* c;
+    pinnnacle_club* d;
+
+    cout << "     *********WELCOME MEMBERS***********      ";
+
+    do {
+        cout << endl;
+        cout << "\n 0.FOR FORMATION OF LINKED LIST ENTER 0: " << " \n\n 1.FOR INSERT AT INITIAL POSITION ENTER 1:" << endl << endl << "2.FOR DELETE AT FIRST POSITION ENTER 2: " << " \n\n 3.FOR INSERT AT END POSITION ENTER 3:" << " \n\n 4.FOR DELETE AT END POSITION ENTER 4:" << "\n\n 5.FOR INSERT AT ANY POSITION ENTER 5:" << "\n\n 6.FOR DELETE AT ANY POSITION ENTER 6:\n\n " << "7.FOR REVERSE THE PRINT THE LINKEDLIST ENTER 7:\n\n" << "8.FOR TO CONCATENATE WITH OTHER LINKEDLIST ENTER 8:";
+        cin>>n;
+        switch (n) {
+            case 0:c = g.linkedlistf();
+                       g.put();   
+                break;
+            case 1:g.insert_first();
+                break;
+            case 2:g.delete_first();
+                break;
+            case 3:g.insert_end();
+                break;
+            case 4:g.delete_end();
+                break;
+            case 5:g.insert_any();
+                break;
+            case 6:g.delete_any();
+                break;
+            case 7:g.reverselist();
+                break;
+            case 8:cout << "\nEnter Second Linked List which is to be CONCATENATED with First:";
+
+                d = g1.linkedlistf();
+                    g2.concatenate(c, d);
+                    
+                break;
+            default:cout << "INVALID INPUT";
+        }
+        cout << endl;
+        cout << "For continue enter 'Y' or 'N' for exist ";
+        cin>>y;
+    } while (y == 'y' || y == 'Y');
+
+    cout << endl;
+}
+
+
+
+
+
+
+

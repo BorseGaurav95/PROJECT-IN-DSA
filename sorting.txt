@@ -1,0 +1,145 @@
+#include<iostream>
+using namespace std;
+#define MAX 10
+
+class sorting {
+    float m[MAX];
+    int a;
+public:
+
+    void get() {
+        cout << "Enter No. of Students :";
+        cin>>a;
+        cout << "Enter SGPA of Students:\n";
+        for (int i = 0; i < a; i++) {
+        cout << "Student No. " << i + 1 << "]=";
+        cin >> m[i];
+
+        }
+    }
+
+    void bubble() {
+        for (int pass = 1; pass < a; pass++) {
+            for (int i = 0; i < (a - pass); i++) {
+                if (m[i] > m[i + 1]) {
+                    float temp;
+                    temp = m[i];
+                    m[i] = m[i + 1];
+                    m[i + 1] = temp;
+                }
+            }
+
+        }
+
+
+    }
+
+    void display() {
+        cout << "Result :";
+        for (int i = 0; i < a; i++) {
+
+            cout << m[i] << " , ";
+        }
+    }
+
+    void display1() {
+        int i = a - 1, j = 0;
+        cout << "Top five Grades:";
+        do {
+
+            cout << " , " << m[i];
+            i--;
+            j++;
+        } while (j != 5 && i >= 0);
+
+
+    }
+
+    void selection() {
+        for (int i = 0; i < a - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < a; j++) {
+                if (m[min] > m[j]) {
+
+                    min = j;
+
+                }
+
+
+            }
+            float temp;
+            temp = m[i];
+            m[i] = m[min];
+            m[min] = temp;
+
+        }
+
+
+    }
+
+    void insertion() {
+        int i, j;
+        float temp;
+        for (i = 1; i < a; i++) {
+            temp = m[i];
+            j = i - 1;
+            while (m[i] < m[j] && j >= 0) {
+
+                m[j + 1] = m[j];
+                j--;
+
+            }
+            m[j + 1] = temp;
+        }
+
+
+
+    }
+
+};
+
+int main() {
+    sorting s;
+    int l;
+    char y;
+    cout<<"------*********-----WELCOME----*********-------\n";
+    do {cout<<endl;
+        cout << "1.DETAILS ENTER :\n";
+        cout << "2.BUBBLE SORT   :\n";
+        cout << "3.SELECTION SORT:\n";
+        cout << "4.INSERTION SORT:\n";
+        cout << "5.TOP '5' GRADES:\n ";
+        cout << "6.EXIT          :\n ";
+        cout << "CHOISE:";
+        cin>>l;
+        switch (l) {
+            case 1:
+                s.get();
+                break;
+            case 2: s.bubble();
+                s.display();
+                break;
+
+            case 3:s.selection();
+                s.display();
+                break;
+            case 4:s.insertion();
+                s.display();
+                break;
+            case 5:
+                s.display1();
+                break;
+            case 6:
+                break;
+
+            default:cout << "INVALID INPUT";
+
+
+        }
+
+    } while (l != 6);
+
+
+
+
+}

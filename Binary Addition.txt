@@ -1,0 +1,340 @@
+#include<iostream>
+using namespace std;
+class binary;
+
+binary* cn = NULL;
+binary* head = NULL;
+binary* t = NULL;
+binary* t1 = NULL;
+int a;
+
+class binary {
+private:
+   int b, carry, sum;
+public:
+    binary* header = NULL;
+    binary* pre = NULL;
+    binary* next = NULL;
+
+    binary* bin_in() {
+        cout << "\nENTER NO. OF BINARY BIT:";
+        cin>>a;
+        for (int i = 0; i < a; i++) {
+            binary* nn;
+            nn = new binary;
+            cout << "\nENTER BINARY NO.:";
+            cin >> nn->b;
+            nn->pre = nn->next = NULL;
+            if (header == NULL) {
+                header = nn;
+            }
+            else {
+
+                cn = header;
+                while (cn->next != NULL) {
+                    cn = cn->next;
+
+                }
+                cn->next = nn;
+                nn->pre = cn;
+
+
+            }
+          
+
+        }
+
+       cout << "BINARY NO. IS:";
+        return header;
+    }
+
+    void dispaly() {
+        cn = header;
+
+        while (cn != NULL) {
+            cout << cn->b;
+            cn = cn->next;
+
+        }
+        cout << endl;
+
+    }
+
+    void comp_1s() {
+
+        cn = header;
+
+        while (cn != NULL) {
+            if (cn->b == 1) {
+
+                cn->b = 0;
+
+            }
+
+            else {
+
+                cn->b = 1;
+
+            }
+
+            cn = cn->next;
+
+
+        }
+
+        cout << "\n1'S COMPLEMENT OF BINARY NO. IS:";
+
+    }
+
+    /*void dispaly1()
+       {  cn=t;
+           
+           while(cn!=NULL)
+             {
+                    cout<<cn->b;
+                    cn=cn->next;
+
+             }
+           cout<<endl;
+
+         }
+     */
+
+    void comp_2s() {
+        int carry = 1;
+        binary* ln;
+        cn = header;
+        while (cn != NULL) {
+            ln = cn;
+
+            cn = cn->next;
+
+
+        }
+
+        while (ln->next != NULL) {
+
+            ln = ln->next;
+
+        }
+
+        while (ln->pre != NULL) {
+            if (ln->b == 1 && carry == 1) {
+
+                ln->b = 0;
+
+                carry = 1;
+
+
+
+
+            }
+            else if (ln->b == 0 && carry == 1) {
+
+                ln->b = 1;
+
+                carry = 0;
+
+
+            }
+            else if (ln->b == 1 && carry == 0) {
+
+                ln->b = 1;
+
+                carry = 0;
+
+
+
+            }
+            else
+
+                break;
+            ln = ln->pre;
+
+
+
+        }
+
+
+
+
+        cout << "ENTER 2'S COMPLEMENT OF BINARY NO. IS:";
+
+
+
+
+
+
+    }
+
+    void add(binary *c1, binary *c2) {
+        binary* b1;
+        binary* b2;
+        binary* s = NULL;
+        carry = 0;
+        b1 = c1;
+        b2 = c2;
+        while (b1->next != NULL) {
+            b1 = b1->next;
+        }
+        while (b2->next != NULL) {
+            b2 = b2->next;
+        }
+
+
+
+        while (b1 != NULL && b2 != NULL) {
+
+            sum = (b1->b + b2->b + carry) % 2;
+            carry = (b1->b + b2->b + carry) / 2;
+            b1 = b1->pre;
+            b2 = b2->pre;
+
+            s = new binary;
+            s->b = sum;
+
+            if (head == NULL)
+               { head = s;
+                  head->next=NULL;
+                 }
+            else {
+                    head->pre = s; 
+                    s->next = head;
+                    s->pre = NULL;
+                    head = s;
+            }
+           
+
+        }
+
+        while (b1 != NULL) {
+            sum = (b1->b + carry) % 2;
+            carry = (b1->b + carry) / 2;
+            cn = new binary;
+            cn->b = sum;
+
+
+            if (head == NULL)
+                {     head = cn;
+                     head->next=NULL;                 
+                 }
+            else {
+                head->pre = cn;
+                cn->next = head;
+                cn->pre = NULL;
+                head = cn;
+            }
+            b1 = b1->pre;
+        }
+        while (b2 != NULL) {
+            sum = (b2->b + carry) % 2;
+            carry = (b2->b + carry) / 2;
+            cn = new binary;
+            cn->b = sum;
+
+
+            if (head == NULL)
+                 {  head = cn;
+                    head->next=NULL;
+                  }
+            else {
+                head->pre = cn;
+                b1->next = head;
+                cn->pre = NULL;
+                head = cn;
+            }
+            b2 = b2->pre;
+        }
+
+        if (carry == 1) {
+            cn = new binary;
+            cn->b = carry;
+
+
+            if (head == NULL)
+                 {head = cn;
+                 head->next=NULL;      
+                  }
+             else {
+                head->pre = cn;
+                cn->next = head;
+                cn->pre = NULL;
+                head = cn;
+            }
+            
+        }
+
+        cn = head;
+        cout<<"\nADDITION OF BINARY NO. IS:";
+        while (cn != NULL) {
+            cout << cn->b<<"   ";
+            cn = cn->next;
+
+        }
+        cout << endl;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+/*s->next=NULL;
+         cn=head;
+           
+          while(cn!=NULL)
+            {
+                   cout<<cn->b;
+                   cn=cn->next;
+
+            }
+         cout<<endl;
+
+  
+ 
+
+
+
+int main() {
+    binary* t2;
+    binary b1, b2, b3;
+    int j;
+    do {
+        cout << "\n1.TO ENTER BINARY NO.:";
+        //cout<<"\n2.TO DISPLAY BINARY NO.:";
+        cout << "\n2.FOR 1'S COMPLEMENT OF BINARY NO.:";
+        cout << "\n3.FOR 2'S COMPLEMENT OF BINARY NO.:";
+        cout << "\n4.FOR ADDITION OF TWO BINARY NO.:";
+        cout << "\n5.EXIST:";
+        cin>>j;
+        switch (j) {
+            case 1: t = b1.bin_in();
+                b1.dispaly();
+                break;
+            case 2: b1.comp_1s();
+                b1.dispaly();
+                break;
+            case 3:b1.comp_2s();
+                b1.dispaly();
+                break;
+            case 4:
+                cout << "\nENTER SECOND BINARY NO.:";
+                t2 = b2.bin_in();
+                b2.dispaly();
+                b3.add(t, t2);
+        }
+        cout << "\nENTER 1 TO CONTINUE:";
+        cin>>j;
+    } while (j == 1);
+}

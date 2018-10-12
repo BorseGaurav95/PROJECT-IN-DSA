@@ -1,0 +1,162 @@
+#include<iostream>
+using namespace std;
+#define MAX 10 
+
+struct de {
+    int data;
+    de* pre = NULL;
+    de* next = NULL;
+};
+
+class deque {
+    static int count;
+public:
+    de* front = NULL;
+    de* rear = NULL;
+
+    void dequf() {
+    }
+
+   
+
+    void display() {
+        de* p = front;
+        cout<<"QUEUE :";
+        do {
+            cout << p->data << " , ";
+            p = p->next;
+        } while (p != NULL);
+    }
+
+    void dele_f() {
+        if (front == NULL && rear == NULL) {
+            cout << "empty";
+        } else {
+            front = front->next;
+        }
+    }
+
+    void insert_f() {
+        de* nn;
+        nn = new de;
+        cout << "\nEnter Data:";
+        cin >> nn->data;
+        nn->next = nn->pre = NULL;
+        if (front == NULL && rear == NULL) {
+            front = rear = nn;
+            count++;
+        } else {
+            front->pre = nn;
+            nn->next = front;
+            front = nn;
+            count++;
+        }
+    }
+
+    void insert_e() {
+        de* nn;
+        nn = new de;
+        cout << "\nEnter Data:";
+        cin >> nn->data;
+        nn->next = nn->pre = NULL;
+        if (front == NULL && rear == NULL) {
+            front = rear = nn;
+            count++;
+
+        } else {
+            rear->next = nn;
+            nn->pre = rear;
+            rear = nn;
+            count++;
+        }
+    }
+
+    void dele_e() {
+        if (que_em()) {
+            rear = rear->pre;
+            rear->next = NULL;
+        } else
+            cout << "Queue empty:";
+    }
+
+    int que_fu() {
+
+        if (count == MAX)
+            return 0;
+        else
+            return 1;
+
+    }
+
+    int que_em() {
+
+        if (front = rear = NULL)
+            return 0;
+        else
+            return 1;
+
+
+
+
+    }
+
+
+};
+
+int deque::count;
+
+int main() {
+    deque d;
+    int choise, a;
+    do {
+        cout << "1.Enter DATA at FRONT  :\n";        cout << "2.Enter DATA at REAR   :\n";        cout <<"3.Delete DATA at FRONT :\n ";
+        cout <<"4.Delete DATA at REAR  :\n ";        cout <<"5.Display Details      :\n";
+       cout <<"6.Exit: ";
+        
+
+
+        cout << "\nEnter Your Choise :";
+        cin>>choise;
+        switch (choise) {
+            case 1:
+                do {
+                    d.insert_f();
+                    cout << "Continue '1':";
+                    cin>>a;
+                } while (a == 1);
+                break;
+            case 2: do {
+                    d.insert_e();
+                    cout << "Continue '1':";
+                    cin>>a;
+                } while (a == 1);
+                break;
+            case 3:d.dele_f();
+                break;
+            case 4:d.dele_e();
+                break;
+            case 5:
+                cout << "\n---------------------------------------------------------------------\n";
+                d.display();
+                cout << "\n---------------------------------------------------------------------\n";
+                break;
+            case 6:break;
+        }
+
+    } while (choise != 6);
+
+
+
+}
+
+
+//      
+//    do {
+//        d1.insert_f();
+//        cout << "Enter '1' to continue:";
+//        cin>>a;
+//    } while (a == 1);
+//    d1.display();
+//
+
+

@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+#define MAX 10
+
+class Sort {
+    int m[MAX], s;
+public:
+
+    void arr_Form(int l) {
+        s = l;
+        for (int i = 0; i < s; i++) {
+            cout << "\nRoll No.:- ";
+            cin >> m[i];
+        }
+    }
+
+    int partition(int low, int high) {
+        int pivot, i, j;
+        pivot = low;
+        i = low + 1;
+        j = high - 1;
+        while (i <= j) {
+
+            while (m[i] < m[pivot]) {
+                i++;
+            }
+            while (m[j] > m[pivot]) {
+                j--;
+            }
+            if (i < j) {
+                return swap(i, j);
+            }
+          }
+           while(j < i) {
+           	`   return swap(pivot,j);
+           }
+    }
+    int swap(int x, int y) {
+
+        int temp = m[x];
+        m[x] = m[y];
+        m[y] = temp;
+        return y;
+    }
+
+    void quick(int low, int high) { 
+        if (low < high) {
+            int x = partition(low, high);
+            quick(low, x - 1);
+            quick(x + 1, high);
+        }
+    }
+
+    void display() {
+        cout <<"\nQUICK SORTED ARRAY :";
+        for (int i = 0; i < s; i++) {
+            cout << m[i] << "   ";
+         }
+
+        cout<<endl;
+    }
+
+};
+
+int main() {
+    
+    Sort s1;
+    int num;
+    cout<<"\n *** Welcome Students *** \n";
+    cout << "\nEnter No. of Student : ";
+    cin>>num;
+    s1.arr_Form(num);
+    s1.quick(0, num);
+    s1.display();
+
+}
+

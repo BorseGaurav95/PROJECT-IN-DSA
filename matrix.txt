@@ -1,0 +1,382 @@
+#include<iostream>
+using namespace std;
+
+class matrix
+  { int i,j;
+    int row,col,k,count;
+    int num;  
+    public:
+     int s[20][20],t[20][20];
+      void sparce()
+          {  cout<<"\nEnter no. of rows::";
+             cin>>row;
+             cout<<"\nEnter no. of coloumn:: ";
+             cin>>col;
+             count=1;
+          for(i=0;i<row;i++)    
+            { for(j=0;j<col;j++)    
+                 {  
+                    cout<<count<<"]s["<<i<<"]["<<j<<"]=";
+                    cin>>s[i][j];
+                    count++;
+                 }
+
+            }
+         
+        }
+    
+        void display()
+           {    cout<<endl<<"SPARCE MATRIX OF IS::"<<endl;
+                 for(i=0;i<row;i++)    
+                   {  for(j=0;j<col;j++)    
+                          {
+                            cout<<"|\t"<<s[i][j]<<"\t|";
+                          }
+                       cout<<endl; 
+                   }
+                         
+
+            } 
+
+
+
+
+       void triplet()
+           {    k=1;
+                t[0][0]=row;
+                t[0][1]=col;        
+               
+            for(i=0;i<row;i++)    
+                   {  for(j=0;j<col;j++) 
+                        {
+                            if(s[i][j]!=0)
+                              {
+                                  t[k][0]=i;
+                                  t[k][1]=j;
+                                  t[k][2]=s[i][j];
+                                  k++;
+                               }
+
+                         }  
+                
+ 
+                   }
+    
+              num=k-1;
+              t[0][2]=num;
+           }
+
+
+     void display1()
+           {    
+             
+                 t[0][0]=row;
+                 t[0][1]=col;
+                 cout<<"\tROW"<<"\t\tCOLUMN"<<"\t\tNZ"<<endl;
+                 for(i=0;i<num+1;i++)    
+                   {  for(j=0;j<3;j++)    
+                          {
+                            cout<<"\t"<<t[i][j]<<"\t|";
+                          }
+                       cout<<endl; 
+                   }
+                         
+
+          }
+            
+
+
+
+
+       matrix add(matrix m1,matrix m2)
+            {   matrix m3;
+                   
+                   
+              if(m1.t[0][0]==m2.t[0][0]&&m1.t[0][1]==m2.t[0][1])
+              {   
+                  int i=1,j=1,k=1;
+
+                    m3.t[0][0]=m1.t[0][0];  
+                    m3.t[0][1]=m1.t[0][1];
+                 while(i<=m1.t[0][2]&&j<=m2.t[0][2])    
+                      {
+                          if(m1.t[i][0]==m2.t[j][0])
+                            { if(m1.t[i][1]==m2.t[j][1])
+                                {
+                                     m3.t[k][0]=m1.t[i][0]; 
+                                     m3.t[k][1]=m1.t[i][1];
+                                     m3.t[k][2]=m1.t[i][2]+m2.t[j][2];
+                                       i++;j++;k++;
+                                       
+
+                                 }
+                              else if(m1.t[i][1]<m2.t[j][1])
+                                  {
+
+                                         m3.t[k][0]=m1.t[i][0]; 
+                                         m3.t[k][1]=m1.t[i][1];
+                                         m3.t[k][2]=m1.t[i][2];
+                                         i++;k++;
+
+
+                                   }
+                              else
+                                  {
+                                             m3.t[k][0]=m2.t[j][0]; 
+                                             m3.t[k][1]=m2.t[j][1];
+                                             m3.t[k][2]=m2.t[j][2];
+                                             j++;k++;
+
+
+
+                                    }  
+
+
+
+                             }
+                                 
+                                  else if(m1.t[i][0]<m2.t[j][0])  
+                                     {
+                                           
+                                              m3.t[k][0]=m1.t[i][0]; 
+                                              m3.t[k][1]=m1.t[i][1];
+                                              m3.t[k][2]=m1.t[i][2];
+                                              i++;k++;
+
+
+                                       }
+                                 else
+                                       {
+
+                                                
+                                              m3.t[k][0]=m2.t[j][0]; 
+                                              m3.t[k][1]=m2.t[j][1];
+                                              m3.t[k][2]=m2.t[j][2];
+                                              j++;k++;
+
+
+                                           }
+                                        
+
+
+
+                      }       
+                         
+                               while(j<=m2.t[0][2])
+                                        {
+
+                                             m3.t[k][0]=m2.t[j][0]; 
+                                              m3.t[k][1]=m2.t[j][1];
+                                              m3.t[k][2]=m2.t[j][2];
+                                              j++;k++;
+
+                                          }
+                                    while(i<=m1.t[0][2])
+                                        {
+
+                                              m3.t[k][0]=m1.t[j][0]; 
+                                              m3.t[k][1]=m1.t[j][1];
+                                              m3.t[k][2]=m1.t[j][2];
+                                              i++;k++;
+
+                                          }
+                                
+                    m3.t[0][2]=k-1;
+          
+     }  
+         
+     else 
+          { 
+                cout<<"addition is not not possible";
+  
+           }
+             return m3;
+         
+    }    
+     
+     
+     void display2()
+           {    
+                  
+                  
+                 
+                 cout<<endl<<"ADDITION OF MATRIX IS::"<<endl;
+                 cout<<"\tROW"<<"\t\tCOLUMN"<<"\t\tNZ"<<endl;
+                 for(i=0;i<=t[0][2];i++)    
+                   {  for(j=0;j<3;j++)    
+                          {
+                            cout<<"\t"<<t[i][j]<<"\t|";
+                          }
+                       cout<<endl; 
+                   }
+                         
+
+          }
+     matrix sitrans(matrix m1)
+        { matrix mt1;
+             int m,n,term=m1.t[0][2];
+             int c,d,e;
+             m=m1.t[0][0];
+             n=m1.t[0][1];
+             mt1.t[0][0]=n;
+             mt1.t[0][1]=m;
+             mt1.t[0][2]=m1.t[0][2];
+             e=1;
+             while(e<=term)
+             {
+                 for(c=0;c<n;c++)
+                     { 
+                     for(d=1;d<=term;d++)
+                         {
+                         if(m1.t[d][1]==c)
+                              {
+                             mt1.t[e][0]=m1.t[d][1];
+                             mt1.t[e][1]=m1.t[d][0];
+                             mt1.t[e][2]=m1.t[d][2];
+                                 e++;    
+                               }
+                     
+                           }
+                     if(e>term)
+                         break;
+                        
+                         
+                             
+                 
+                  
+                     }   
+             
+             
+             
+             
+             }
+             
+            
+     
+             return mt1;
+        }
+     
+     void display3()
+           {    
+                  
+                  
+                 
+                 cout<<endl<<"TRANSPOSE OF SIMPLE MATRIX IS::"<<endl;
+                 cout<<"\tROW"<<"\t\tCOLUMN"<<"\t\tNZ"<<endl;
+                 for(i=0;i<=t[0][2];i++)    
+                   {  for(j=0;j<3;j++)    
+                          {
+                            cout<<"\t"<<t[i][j]<<"\t|";
+                          }
+                       cout<<endl; 
+                   }
+     
+     
+     }    
+     
+     
+     
+     matrix fatrans(matrix m1)
+        { matrix mt2;
+             int m,n,term=m1.t[0][2];
+             int c,d,e;
+             m=m1.t[0][0];
+             n=m1.t[0][1];
+             mt2.t[0][0]=n;
+             mt2.t[0][1]=m;
+             mt2.t[0][2]=m1.t[0][2];
+           int  rterm[n],rpos[n];
+           for(i=0;i<=n;i++)
+               {
+               rterm[i]=0;
+               } 
+           for(i=1;i<=term;i++)
+                {
+                   rterm[m1.t[i][1]]++; 
+                }
+           rpos[0]=1;
+               for(i=1;i<n;i++)
+                  {
+                   rpos[i]=rpos[i-1]+rterm[i-1];
+                   }     
+                      for(i=1;i<=term;i++)
+                         {
+                           int j=rpos[m1.t[i][1]];
+                              
+                                   mt2.t[j][0]=m1.t[i][1];
+                                   mt2.t[j][1]=m1.t[i][0];
+                                   mt2.t[j][2]=m1.t[i][2];
+                                   rpos[m1.t[i][1]]++;    
+                               
+                     
+                         }
+           return mt2;
+     }               
+               
+     
+     
+        
+     void display4()
+           {    
+                  
+                  
+                 
+                 cout<<endl<<"TRANSPOSE OF FAST MATRIX IS::"<<endl;
+                 cout<<"\tROW"<<"\t\tCOLUMN"<<"\t\tNZ"<<endl;
+                 for(i=0;i<=t[0][2];i++)    
+                   {  for(j=0;j<3;j++)    
+                          {
+                            cout<<"\t"<<t[i][j]<<"\t|";
+                          }
+                       cout<<endl; 
+                   }
+     
+     
+     }    
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+
+
+    
+
+ };
+
+
+
+
+
+int main()
+{
+    matrix m,m1,m2,m3,m4,temp,stra,fatra;
+
+       m.sparce();
+       m.display();
+       
+       m1.sparce();
+       m1.display();
+       cout<<endl<<"TRIPLET FORM OF  FIRST MATRIX IS::"<<endl;
+       m.triplet();
+       m.display1();
+       cout<<endl<<"TRIPLET FORM OF SECOND SPARCE MATRIX IS::"<<endl;
+       m1.triplet();
+       m1.display1();
+
+        temp=m2.add(m,m1);
+        temp.display2();
+        
+      stra=m3.sitrans(m);
+       stra.display3();
+
+        fatra=m4.fatrans(m1);
+        fatra.display4();
+
+}
